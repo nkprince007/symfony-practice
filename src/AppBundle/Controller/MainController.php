@@ -16,4 +16,8 @@ class MainController extends Controller
         return $this->render('main/homepage.html.twig');
     }
 
+    public function debugAction() {
+        dump($this);die;
+    }
+
 }

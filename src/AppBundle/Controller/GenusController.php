@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
 use AppBundle\Entity\GenusNote;
+use AppBundle\Service\MarkdownTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -41,7 +42,7 @@ class GenusController extends Controller {
      */
     public function listAction() {
         $em = $this->getDoctrine()->getManager();
-        $genuses = $em->getRepository('AppBundle:Genus')->findAllPublishedOrderedBySize();
+        $genuses = $em->getRepository('AppBundle:Genus')->findAllPublishedOrderedByRecentlyActive();
 
         return $this->render('genus/list.html.twig',[
             'genuses' => $genuses
@@ -56,16 +57,12 @@ class GenusController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $genus = $em->getRepository('AppBundle:Genus')->findOneBy(['name' => $genusname]);
 
-//        $funFact = "Octopuses can change the color of their body in just *three-tenths* of a second!";
-//        $funFact = $this->get('markdown.parser')->transform($funFact);
-
-//        return $this->render('genus/show.html.twig',[
-//            'name' => $genusname,
-//            'funFact' => $funFact
-//        ]);
         if(!$genus) {
             throw $this->createNotFoundException('genus not found');
         }
+
+        $markdownParser = new MarkdownTransformer();
+        $funFact = $markdownParser->parse($genus->getFunFact());
 
         $recentNotes = $em->getRepository('AppBundle:GenusNote')->findAllRecentNotesForGenius($genus);
 
@@ -73,7 +70,8 @@ class GenusController extends Controller {
 
         return $this->render('genus/show.html.twig',array(
             'genus' => $genus,
-            'recentNoteCount' => count($recentNotes)
+            'recentNoteCount' => count($recentNotes),
+            'funFact' => $funFact
         ));
     }
 

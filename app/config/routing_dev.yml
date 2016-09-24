@@ -12,3 +12,8 @@ _errors:
 
 _main:
     resource: routing.yml
+
+debug:
+    path: /debug
+    defaults:
+        _controller: AppBundle:Main:debug

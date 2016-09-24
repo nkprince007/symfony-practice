@@ -6,6 +6,7 @@
         <entryData>
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/src/AppBundle" />
+            <path value="file://$PROJECT_DIR$/src/AppBundle/Service" />
           </resourceRoots>
         </entryData>
       </entry>
