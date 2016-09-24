@@ -19,9 +19,17 @@ class GenusController extends Controller {
      * @Route("/genus/{genusname}")
      */
     public function showActionWithName($genusname) {
+
+        $notes = [
+            "Octupus asked me a riddle, outsmarted me",
+            "I counted 8 legs... as they wrapped around me",
+            "Inked!"
+        ];
+
         $templating = $this->container->get('templating');
         $html = $templating->render("genus/show.html.twig", [
-            'name' => $genusname
+            'name' => $genusname,
+            'notes' => $notes
         ]);
 
         return new Response($html);
