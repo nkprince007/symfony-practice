@@ -11,7 +11,11 @@ namespace AppBundle\Service;
 
 class MarkdownTransformer
 {
+    public function __construct($markdownParser) {
+        $this->markdownParser = $markdownParser;
+    }
+
     public function parse($str) {
-        return strtoupper($str);
+        return $this->markdownParser->transformMarkdown($str);
     }
 }
