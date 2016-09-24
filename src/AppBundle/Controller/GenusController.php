@@ -51,7 +51,7 @@ class GenusController extends Controller {
     /**
      * @Route("/genus/{genusname}", name="genus_show")
      */
-    public function showActionWithName($genusname) {
+    public function showAction($genusname) {
 
         $em = $this->getDoctrine()->getManager();
         $genus = $em->getRepository('AppBundle:Genus')->findOneBy(['name' => $genusname]);
@@ -67,10 +67,16 @@ class GenusController extends Controller {
             throw $this->createNotFoundException('genus not found');
         }
 
+        $recentNotes = $genus->getNotes()->filter(function(GenusNote $note) {
+            return $note->getCreatedAt() > new \DateTime('-3 months');
+        });
+
+
         $this->get('logger')->info('Showing genus: '.$genusname);
 
         return $this->render('genus/show.html.twig',array(
-            'genus' => $genus
+            'genus' => $genus,
+            'recentNoteCount' => count($recentNotes)
         ));
     }
 
