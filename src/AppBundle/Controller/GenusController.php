@@ -23,16 +23,19 @@ class GenusController extends Controller {
     public function showActionWithName($genusname) {
 
         $funFact = "Octopuses can change the color of their body in just *three-tenths* of a second!";
-
         $funFact = $this->get('markdown.parser')->transform($funFact);
 
-        $templating = $this->container->get('templating');
-        $html = $templating->render("genus/show.html.twig", [
+//        $templating = $this->container->get('templating');
+//        $html = $templating->render("genus/show.html.twig", [
+//            'name' => $genusname,
+//            'funFact' => $funFact
+//        ]);
+//        return new Response($html);
+
+        return $this->render('genus/show.html.twig',[
             'name' => $genusname,
             'funFact' => $funFact
         ]);
-
-        return new Response($html);
     }
 
     /**
