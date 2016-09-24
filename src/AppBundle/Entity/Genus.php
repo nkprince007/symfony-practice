@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,6 +17,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Genus
 {
+    public function __construct() {
+        $this->notes = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -46,7 +51,29 @@ class Genus
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPublished;
+    private $isPublished = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GenusNote",mappedBy="genus")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $notes;
+
+    /**
+     * @return ArrayCollection|GenusNote[]
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
 
     /**
      * @return mixed
