@@ -30,12 +30,18 @@ class GenusController extends Controller {
     /**
      * @Route("/genus")
      */
-    public function showAction() {
-        return new Response('Under the Sea!');
+    public function listAction() {
+        $em = $this->getDoctrine()->getManager();
+        $genuses = $em->getRepository('AppBundle:Genus')->findAll();
+        dump($genuses);
+
+        return $this->render('genus/list.html.twig',[
+            'genuses' => $genuses
+        ]);
     }
 
     /**
-     * @Route("/genus/{genusname}")
+     * @Route("/genus/{genusname}", name="genus_show")
      */
     public function showActionWithName($genusname) {
 
