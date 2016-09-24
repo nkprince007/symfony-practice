@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Genus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,6 +10,22 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class GenusController extends Controller {
+
+    /**
+     * @Route("/genus/new")
+     */
+    public function newAction() {
+        $genus = new Genus();
+        $genus->setName('Octopus'.rand(1,100));
+        $genus->setSubFamily('Octopodinae');
+        $genus->setSpeciesCount(rand(100,99999));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($genus);
+        $em->flush();
+
+        return new Response('<html><body>Genus created!</body></html>');
+    }
 
     /**
      * @Route("/genus")
@@ -24,13 +41,6 @@ class GenusController extends Controller {
 
         $funFact = "Octopuses can change the color of their body in just *three-tenths* of a second!";
         $funFact = $this->get('markdown.parser')->transform($funFact);
-
-//        $templating = $this->container->get('templating');
-//        $html = $templating->render("genus/show.html.twig", [
-//            'name' => $genusname,
-//            'funFact' => $funFact
-//        ]);
-//        return new Response($html);
 
         return $this->render('genus/show.html.twig',[
             'name' => $genusname,
