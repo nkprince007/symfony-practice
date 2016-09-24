@@ -8,7 +8,6 @@
 
 namespace AppBundle\Service;
 
-
 use Doctrine\Common\Cache\Cache;
 use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 
@@ -25,7 +24,7 @@ class MarkdownTransformer
         if ($cache->contains($key)) {
             return $cache->fetch($key);
         }
-        
+
         $str = $this->markdownParser
             ->transformMarkdown($str);
         $cache->save($key, $str);
