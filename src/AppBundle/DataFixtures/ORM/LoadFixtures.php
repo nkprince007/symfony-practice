@@ -35,6 +35,41 @@ class LoadFixtures implements FixtureInterface {
         return $genera[array_rand($genera)];
     }
 
+    public function subFamily() {
+        $subFamily = [
+            'Afrosoricida',
+            'Artiodactyla',
+            'Carnivora',
+            'Cetacea',
+            'Chiroptera',
+            'Cingulata',
+            'Dasyuromorphia',
+            'Dermoptera',
+            'Didelphimorphia',
+            'Diprotodontia',
+            'Eulipotyphla',
+            'Hyracoidea',
+            'Lagomorpha',
+            'Macroscelidea',
+            'Microbiotheria',
+            'Monotremata',
+            'Notoryctemorphia',
+            'Paucituberculata',
+            'Peramelemorphia',
+            'Perissodactyla',
+            'Pholidota',
+            'Pilosa',
+            'Primates',
+            'Proboscidea',
+            'Rodentia',
+            'Scandentia',
+            'Sirenia',
+            'Tubulidentata'
+        ];
+
+        return $subFamily[array_rand($subFamily)];
+    }
+
     public function load(ObjectManager $manager) {
         $objects = Fixtures::load(
             __DIR__.'/fixtures.yml',

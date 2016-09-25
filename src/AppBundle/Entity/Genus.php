@@ -50,6 +50,11 @@ class Genus
     private $funFact;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    private $firstDiscoveredAt;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
@@ -74,6 +79,22 @@ class Genus
     public function setNotes($notes)
     {
         $this->notes = $notes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstDiscoveredAt()
+    {
+        return $this->firstDiscoveredAt;
+    }
+
+    /**
+     * @param mixed $firstDiscoveredAt
+     */
+    public function setFirstDiscoveredAt($firstDiscoveredAt)
+    {
+        $this->firstDiscoveredAt = $firstDiscoveredAt;
     }
 
     /**
