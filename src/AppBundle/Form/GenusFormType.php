@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 use AppBundle\Repository\SubFamilyRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,7 +28,11 @@ class GenusFormType extends AbstractType
 //                ]
 //            ])
             ->add('isPublished')
-            ->add('firstDiscoveredAt');
+            ->add('firstDiscoveredAt', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {
