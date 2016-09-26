@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\Form;
 
+use AppBundle\Repository\SubFamilyRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -10,9 +12,20 @@ class GenusFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('name')
-            ->add('subFamily')
+            ->add('subFamily', null, [
+                'placeholder' => 'Choose a Sub Family',
+                'query_builder' => function(SubFamilyRepository $repository) {
+                    return $repository->createAlphabeticalQueryBuilder();
+                }
+            ])
             ->add('speciesCount')
             ->add('funFact')
+//            ->add('isPublished', ChoiceType::class, [
+//                'choices' => [
+//                    "Yes" => true,
+//                    "No" => false,
+//                ]
+//            ])
             ->add('isPublished')
             ->add('firstDiscoveredAt');
     }
