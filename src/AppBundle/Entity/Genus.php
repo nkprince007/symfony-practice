@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
@@ -29,6 +30,7 @@ class Genus
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string")
      */
     private $name;
@@ -40,6 +42,8 @@ class Genus
     private $subFamily;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Range(min="0",minMessage="Negative species? Come on...")
      * @ORM\Column(type="string")
      */
     private $speciesCount;
@@ -50,6 +54,7 @@ class Genus
     private $funFact;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="date")
      */
     private $firstDiscoveredAt;
