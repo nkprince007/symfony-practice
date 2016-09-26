@@ -13,6 +13,6 @@ services:
     app.markdown_transformer:
         class: AppBundle\Service\MarkdownTransformer
         arguments: ['@markdown.parser','@doctrine_cache.providers.my_markdown_cache']
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.security.login_form_authenticator:
+        class: AppBundle\Security\LoginFormAuthenticator
+        autowire: true
