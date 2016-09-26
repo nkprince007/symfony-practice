@@ -2,6 +2,10 @@ AppBundle\Entity\SubFamily:
     sub.family_{1..25}:
         name: <subFamily()>
 
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: nkprince007+<current()>@gmail.com
+
 AppBundle\Entity\Genus:
     genus_{1..50}:
         name: <genus()>
